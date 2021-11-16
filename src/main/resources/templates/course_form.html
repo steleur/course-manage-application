@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xml:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>[[${pageTitle}]]</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="text-center"><h2>[[${pageTitle}]]</h2></div>
+
+  <form th:action="@{/courses/save}" method="post" th:object="${course}" style="max-width: 500px;
+margin: 0 auto;">
+
+    <input type="hidden" th:field="*{courseId}">
+    <div class="border border-secondary rounded p-3">
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Course name</label>
+        <div class="col col-sm-8">
+          <p>
+            <input type="text" th:field="*{courseName}" class="form-group" required minlength="5"
+                   maxlength="45">
+          </p>
+        </div>
+
+
+        <label class="col-sm-4 col-form-label">Teacher</label>
+        <div class="col col-sm-8">
+          <select th:field="*{user.id}" class="col col-sm-8">
+            <th:block th:each="user :${listUsers}">
+              <option th:value="${user.id}">[[${user.firstName + " " + user.lastName}]]</option>
+            </th:block>
+
+          </select>
+          <input value="${user.id}" type="hidden" th:field="${course.user.id}">
+        </div>
+      </div>
+
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary m-2">
+          Save
+        </button>
+        <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">
+          Cancel
+        </button>
+      </div>
+
+
+    </div>
+  </form>
+</div>
+
+<script type="text/javascript">
+  function cancelForm() {
+    window.location = "[[@{/courses}]]"
+  }
+</script>
+</body>
+</html>
