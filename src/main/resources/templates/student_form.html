@@ -39,8 +39,11 @@ margin: 0 auto;">
         <div class="form-group row">
           <label class="col-sm-4 col-form-label">Phone number</label>
           <div class="col col-sm-8">
-            <input type="text" th:field="*{phoneNumber}" class="form-group" required minlength="11"
-                   maxlength="13">
+            <p><input type="text" th:field="*{phoneNumber}" class="form-group" required
+                      minlength="11"
+                      maxlength="13">
+            </p>
+
           </div>
 
           <label class="col-sm-4 col-form-label">Course</label>
@@ -55,18 +58,18 @@ margin: 0 auto;">
           </div>
         </div>
 
-        </div>
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary m-2">
-            Save
-          </button>
-          <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">
-            Cancel
-          </button>
-        </div>
       </div>
-    </form>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary m-2">
+          Save
+        </button>
+        <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">
+          Cancel
+        </button>
+      </div>
   </div>
+  </form>
+</div>
 </div>
 
 <script type="text/javascript">

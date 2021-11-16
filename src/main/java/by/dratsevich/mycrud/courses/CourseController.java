@@ -1,9 +1,12 @@
 package by.dratsevich.mycrud.courses;
 
+import by.dratsevich.mycrud.students.Student;
+import by.dratsevich.mycrud.students.StudentService;
 import by.dratsevich.mycrud.users.User;
 import by.dratsevich.mycrud.users.UserNotFoundExeption;
 import by.dratsevich.mycrud.users.UserService;
 import java.util.List;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +23,8 @@ public class CourseController {
   private CourseService courseService;
   @Autowired
   private UserService service;
+  @Autowired
+  private StudentService studentService;
 
   @GetMapping("/courses")
   public String showCoursesList(Model courseModel) {
@@ -70,6 +75,24 @@ public class CourseController {
       ra.addFlashAttribute("message", "The course has been edit successfully!");
     }
     return "redirect:/courses";
+  }
+
+  @GetMapping("courses/{courseId}")
+  public String showCourseDetails(@PathVariable("courseId") Integer courseId, Model model,
+      Model courseModel, Model studentModel) {
+    try {
+      Course course = courseService.get(courseId);
+      courseModel.addAttribute("course", course);
+      courseModel.addAttribute("courseName", course.getCourseName());
+      List<Course> listCourses = courseService.listAllCourses();
+      courseModel.addAttribute("listCourses", listCourses);
+      List<Student> listStudents = studentService.listStudentsOnCourse(courseId);
+      studentModel.addAttribute("listStudents", listStudents);
+      return "course_details";
+    } catch (CourseNotFoundExeption e) {
+      return "redirect:/courses";
+    }
+
   }
 
 }

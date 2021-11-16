@@ -5,6 +5,7 @@ import by.dratsevich.mycrud.courses.CourseNotFoundExeption;
 import by.dratsevich.mycrud.courses.CourseRepository;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,21 +22,26 @@ public class StudentService {
     studentRepo.save(student);
   }
 
-  public Student get (Integer id) throws CourseNotFoundExeption {
+  public Student get (Integer id) throws StudentNotFoundExeption {
     Optional<Student> result = studentRepo.findById(id);
     if (result.isPresent()) {
       return result.get();
     }
-    throw new CourseNotFoundExeption("Could not find any course with ID " + id);
+    throw new StudentNotFoundExeption("Could not find any student with ID " + id);
   }
 
-  public void delete(Integer id) throws CourseNotFoundExeption {
+  public void delete(Integer id) throws StudentNotFoundExeption {
     Long count = studentRepo.countById(id);
     if (count == null || count == (long) 0) {
-      throw new CourseNotFoundExeption("Could not find any course with id " + id);
+      throw new StudentNotFoundExeption("Could not find any student with id " + id);
     }
     studentRepo.deleteById(id);
 
   }
+
+  public List<Student> listStudentsOnCourse(Integer Id) {
+    return studentRepo.findAllByCourse_CourseId(Id);
+  }
+
 
 }

@@ -3,6 +3,8 @@ package by.dratsevich.mycrud.students;
 import by.dratsevich.mycrud.courses.Course;
 import by.dratsevich.mycrud.courses.CourseNotFoundExeption;
 import by.dratsevich.mycrud.courses.CourseService;
+import by.dratsevich.mycrud.users.User;
+import by.dratsevich.mycrud.users.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ public class StudentController {
   private StudentService studentService;
   @Autowired
   private CourseService courseService;
+  @Autowired
+  private UserService userService;
 
   @GetMapping("/students")
   public String showStudentsList(Model studentModel) {
@@ -45,14 +49,14 @@ public class StudentController {
   }
 
   @GetMapping("students/delete/{id}")
-  public String deleteStudent(Student student) throws CourseNotFoundExeption {
+  public String deleteStudent(Student student) throws StudentNotFoundExeption {
     studentService.delete(student.getId());
     return "redirect:/students";
   }
 
   @GetMapping("students/edit/{id}")
   public String showEditForm(@PathVariable("id") Integer id, Model studentModel,
-      Model courseModel, RedirectAttributes ra) {
+      Model courseModel, Model model,RedirectAttributes ra) {
     try {
       Student student = studentService.get(id);
       studentModel.addAttribute("student", student);
@@ -60,7 +64,7 @@ public class StudentController {
       List<Course> listCourses = courseService.listAllCourses();
       courseModel.addAttribute("listCourses", listCourses);
       return "student_form";
-    } catch (CourseNotFoundExeption e) {
+    } catch (StudentNotFoundExeption e) {
       ra.addFlashAttribute("message", "The student has been edit successfully!");
     }
     return "redirect:/students";

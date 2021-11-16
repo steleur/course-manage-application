@@ -49,8 +49,9 @@
 
 </header>
 <body>
+
 <div class="container-fluid text-center">
-  <h2>Manage Courses</h2>
+  <h2>Manage courses</h2>
 </div>
 
 <table class="table table-bordered">
@@ -66,11 +67,13 @@
       <td class="col-sm-2">
         <a class="btn btn-outline-dark btn-light" th:href="@{'/courses/edit/' + ${course.courseId}}" role="button">Edit</a>
         <a class="btn btn-outline-dark btn-light" th:href="@{'/courses/delete/' + ${course.courseId}}" role="button">Delete</a>
+        <a class="btn btn-outline-dark btn-light" th:href="@{ '/courses/'+ ${course.courseId}}" role="button">Details</a>
 
       </td>
     </tr>
   </th:block1>
 </table>
+
 <!-- Jumbotron -->
 <div class=" text-center" style="margin-top: 5px;">
   <a class="btn btn-primary" th:href="@{/courses/new/}" role="button">Add new course</a>
