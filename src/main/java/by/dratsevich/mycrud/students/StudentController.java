@@ -45,12 +45,14 @@ public class StudentController {
   @PostMapping("students/save")
   public String saveStudent(Student student, RedirectAttributes ra) {
     studentService.save(student);
+    ra.addFlashAttribute("message", "The student has been saved successfully!");
     return "redirect:/students";
   }
 
   @GetMapping("students/delete/{id}")
-  public String deleteStudent(Student student) throws StudentNotFoundExeption {
+  public String deleteStudent(Student student, RedirectAttributes ra) throws StudentNotFoundExeption {
     studentService.delete(student.getId());
+    ra.addFlashAttribute("message", "The user has been deleted successfully!");
     return "redirect:/students";
   }
 

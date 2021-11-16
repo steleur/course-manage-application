@@ -45,7 +45,7 @@ public class CourseController {
   @PostMapping("/courses/save")
   public String saveUser(@ModelAttribute Course course, RedirectAttributes ra) {
     courseService.save(course);
-    ra.addFlashAttribute("message", "The user has been saved successfully!");
+    ra.addFlashAttribute("message", "The course has been saved successfully!");
     return "redirect:/courses";
 
   }
@@ -54,7 +54,7 @@ public class CourseController {
   public String deleteCourse(@PathVariable("courseId") Integer courseId, RedirectAttributes ra) {
     try {
       courseService.delete(courseId);
-      ra.addFlashAttribute("message", "The user has been deleted successfully!");
+      ra.addFlashAttribute("message", "The course has been deleted successfully!");
     } catch (CourseNotFoundExeption e) {
       e.printStackTrace();
     }

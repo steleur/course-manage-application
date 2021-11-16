@@ -54,6 +54,11 @@
   <h2>Manage courses</h2>
 </div>
 
+<div th:if="${message}" class="alert alert-success text-center">
+  [[${message}]]
+</div>
+
+
 <table class="table table-bordered">
   <thead class="thead-dark">
   <th>Course id</th>
